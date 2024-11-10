@@ -1,11 +1,22 @@
 import { View, StatusBar } from "react-native";
-import StatePage from "./screens/StatePage";
+import useStore from "./useStore";
 
-export default function Index() {
+import LoadingScreen from "./screens/LoadingScreen";
+import MapScreen from "./screens/MapScreen";
+import MenuScreen from './screens/MenuScreen';
+import StateScreen from "./screens/StateScreen";
+
+const Index = () => {
+  const screen = useStore((state) => state.screen);
   return (
-    <View style={{paddingTop: StatusBar.currentHeight}}>
+    <View style={{ paddingTop: StatusBar.currentHeight }}>
       <StatusBar barStyle="default" backgroundColor="black" translucent />
-      <StatePage />
+      {screen === 'loading' && <LoadingScreen />}
+      {screen === 'map' && <MapScreen />}
+      {screen === 'menu' && <MenuScreen />}
+      {screen === 'state' && <StateScreen />}
     </View>
   );
-}
+};
+
+export default Index;

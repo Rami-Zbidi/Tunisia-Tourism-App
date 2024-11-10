@@ -1,15 +1,24 @@
 import React from 'react';
-import { View, SafeAreaView, StatusBar, ScrollView, Text, StyleSheet, Dimensions, } from 'react-native';
-import ButtonGroup from './../../components/ButtonGroup';
+import { View, SafeAreaView, StatusBar, ScrollView, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import ButtonGroup from '../../components/ButtonGroup';
 import { ImageBackground } from 'react-native';
 import Icon from '../../components/Icon';
 import Card from '../../components/Card';
 import EmptySection from '../../components/EmptySection';
 
+import useStore from '../useStore';
+
 const { width, height } = Dimensions.get('window');
 
+const StateScreen = () => {
+  const setScreen = useStore((state) => state.setScreen);
+  const goBack = useStore((state) => state.goBack);
 
-const StatePage = () => {
+  const handleNavigation = (dest) => {
+    setPrev();
+    setScreen(dest);
+  }
+
   const memories = [];
 
   return (
@@ -22,9 +31,12 @@ const StatePage = () => {
         resizeMode="cover"
         >
           <View style={styles.overlay} />
-
-          <Icon library="Ionicons" name="arrow-back" color="white" size={30} style={styles.arrowBack} />
-          <Icon library="Feather" name="menu" color="white" size={35} style={styles.menu} />
+          <TouchableOpacity style={styles.arrowBack} onPress={() => goBack()}>
+            <Icon library="Ionicons" name="arrow-back" color="white" size={30} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.menu} onPress={() => setScreen('menu')}>
+          <Icon library="Feather" name="menu" color="white" size={35} />
+          </TouchableOpacity>
 
           <Text style={styles.title}>Tozeur</Text>
           <View style={styles.buttonGroup}>
@@ -145,11 +157,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 10,
+    padding: 0,
+    margin: 0,
   },
   menu: {
     position: 'absolute',
     top: 10,
     right: 10,
+    padding: 0,
+    margin: 0,
   },
   body: {
     padding: 10,
@@ -171,4 +187,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default StatePage;
+export default StateScreen;
