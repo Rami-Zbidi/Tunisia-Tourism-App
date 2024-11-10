@@ -14,11 +14,6 @@ const StateScreen = () => {
   const setScreen = useStore((state) => state.setScreen);
   const goBack = useStore((state) => state.goBack);
 
-  const handleNavigation = (dest) => {
-    setPrev();
-    setScreen(dest);
-  }
-
   const memories = [];
 
   return (
